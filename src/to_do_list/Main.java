@@ -53,6 +53,7 @@ public class Main {
                     taskManager.saveToFile("tasks.csv");
                     break;
                 case 6:
+                    taskManager.loadFromFile("tasks.csv");
                     break;
                 case 0:
                     isTrue = false;

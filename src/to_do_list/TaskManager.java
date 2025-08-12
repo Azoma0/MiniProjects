@@ -1,10 +1,9 @@
 package to_do_list;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class TaskManager {
     private List<Task> tasks;
@@ -59,4 +58,21 @@ public class TaskManager {
         }
     }
 
+    public void loadFromFile(String fileName){
+        tasks.clear();
+        try(Scanner fileScanner = new Scanner(new File(fileName)))
+        {
+            while (fileScanner.hasNextLine()){
+                String line = fileScanner.nextLine();
+                String[] parts = line.split(";");
+                if(parts.length == 4){
+                    Task task = new Task(parts[1], parts[2]);
+                    task.setCompleted(Boolean.parseBoolean(parts[3]));
+                    tasks.add(task);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Ошибка при закгрузке файла: " + e.getMessage());
+        }
+    }
 }
